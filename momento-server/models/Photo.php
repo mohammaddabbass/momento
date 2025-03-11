@@ -1,6 +1,6 @@
 <?php
 require("PhotoSkeleton.php");
-require(__DIR__ . '/../connection/connection.php');
+require(__DIR__ . '/../config/connection.php');
 
 class Photo extends PhotoSkeleton {
     public static function save() {
