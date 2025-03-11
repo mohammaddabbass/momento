@@ -12,10 +12,12 @@ class Photo extends PhotoSkeleton {
         return true;
     }
 
-    public static function all() {
+    public static function all($user_id) {
         global $conn;
-        $result = $conn->query("SELECT * FROM photos");
-        return $result->fetch_all(MYSQLI_ASSOC);
+        $result = $conn->query("SELECT * FROM photos WHERE user_id = ?");
+        $result->bind_param("i", $user_id);
+        $result->execute();
+        return $result->get_result()->fetch_assoc();    
     }
 
     public static function find($id) {

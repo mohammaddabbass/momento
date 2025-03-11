@@ -15,8 +15,18 @@ if ($request == '') {
 }
 
 $apis = [
-    '/faqs'         => ['controller' => 'FAQController', 'method' => 'loadFAQs'],
-    '/create_faq'    => ['controller' => 'FAQController', 'method' => 'addFAQ']
+    // Photo routes
+    '/api/photos' => ['controller' => 'PhotoController', 'method' => 'getAllPhotos'],
+    '/api/photo/upload' => ['controller' => 'PhotoController', 'method' => 'uploadPhoto'],
+    '/api/photo' => ['controller' => 'PhotoController', 'method' => 'getPhoto'],
+    '/api/photo/tags' => ['controller' => 'PhotoController', 'method' => 'getPhotoTags'],
+    '/api/photo/update-tags' => ['controller' => 'PhotoController', 'method' => 'updatePhotoTags'],
+    '/api/photos/by-tag' => ['controller' => 'PhotoController', 'method' => 'getPhotosByTag'],
+    
+    // Tag routes
+    '/api/tags' => ['controller' => 'TagController', 'method' => 'getAllTags'],
+    '/api/tag/create' => ['controller' => 'TagController', 'method' => 'createTag'],
+    '/api/tag/delete' => ['controller' => 'TagController', 'method' => 'deleteTag']
 ];
 
 if (isset($apis[$request])) {
