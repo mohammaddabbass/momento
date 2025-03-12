@@ -1,0 +1,37 @@
+.btn {
+    border: none;
+    border-radius: var(--border-radius-regular);
+    padding: 0.6rem 1.3rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+}
+
+.btn:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+.btn:active {
+    transform: translateY(1.5px);
+}
+
+.primary {
+    background-color: var(--color-primary);
+    color: white;
+}
+
+.primary:hover {
+background-color: darkblue;
+}
+
+.secondary {
+background-color: var(--color-primary-light);
+color: white;
+}
+
+.danger {
+background-color: var(--danger-color);
+color: white;
+}

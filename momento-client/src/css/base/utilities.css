@@ -1,0 +1,27 @@
+.flex {
+    display: flex;
+}
+
+.row {
+    flex-direction: row;
+}
+
+.column {
+    flex-direction: column;
+}
+
+.half-width {
+    width: 50%;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.half-height {
+    height: 50%;
+}
+
+.full-height {
+    height: 100%;
+}
