@@ -12,7 +12,7 @@ class PhotoController {
         $user_id = $_POST['user_id'];
 
         $photos = Photo::all($user_id);
-        echo json_encode(["response" => 1, "data" => $photos]);
+        echo json_encode(["message" => 'photos fetched successfully', "data" => $photos]);
     }
 
     static function uploadPhoto() {
@@ -59,7 +59,7 @@ class PhotoController {
         }
         
         http_response_code(400);
-        echo json_encode(["response" => 0]);
+        echo json_encode(["message" => 'failed to upload image']);
     }
 
     static function getPhoto() {
@@ -67,9 +67,9 @@ class PhotoController {
         $photo = Photo::find($id);
         
         if($photo) {
-            echo json_encode(["response" => 1, "data" => $photo]);
+            echo json_encode(["message" => 'photo fetched successfully', "data" => $photo]);
         } else {
-            echo json_encode(["response" => 0]);
+            echo json_encode(["response" => 'photo not found']);
         }
     }
 
@@ -85,7 +85,7 @@ class PhotoController {
             $data['created_at']
         );
         
-        echo json_encode(["response" => Photo::update() ? 1 : 0]);
+        echo json_encode(["message" => Photo::update() ? 'success' : 'fail']);
     }
 
     static function deletePhoto() {
@@ -93,9 +93,9 @@ class PhotoController {
         Photo::$id = $id;
         
         if(Photo::delete()) {
-            echo json_encode(["response" => 1]);
+            echo json_encode(["message" => 'delete successfully']);
         } else {
-            echo json_encode(["response" => 0]);
+            echo json_encode(["message" => 'failed to delete photo']);
         }
     }
 

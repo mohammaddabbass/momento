@@ -5,7 +5,7 @@ require(__DIR__ . '/../config/connection.php');
 class User extends UserSkeleton {
     public static function save() {
         global $conn;
-        $stmt = $conn->prepare("INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
         $stmt->bind_param("sss", self::$username, self::$email, self::$password);
         $stmt->execute();
         self::$id = $conn->insert_id;

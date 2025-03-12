@@ -4,12 +4,19 @@ header('Access-Control-Allow-Headers: *');
 header("Access-Control-Allow-Methods: POST, GET, PUT, DELETE, OPTIONS");
 header("Content-Type: application/json; charset=UTF-8");
 
-require(__DIR__ . '/../models/User.php');
+require(__DIR__ . '../../../models/User.php');
 
 class UserController {
 
     static function register() {
         $data = json_decode(file_get_contents('php://input'), true);
+
+        $user = User::findByEmail($data['email']);
+
+        if($user) {
+            echo json_encode(["message" => "email already exists"]);
+            exit();
+        }
         
         User::create(
             null, 
@@ -33,7 +40,7 @@ class UserController {
         $data = json_decode(file_get_contents('php://input'), true);
         $user = User::findByEmail($data['email']);
         
-        if($user && password_verify($data['password'], $user['password_hash'])) {
+        if($user && password_verify($data['password'], $user['password'])) {
             echo json_encode([
                 "message" => 'logged in successfully',
                 "user" => [
