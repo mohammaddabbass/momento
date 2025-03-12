@@ -5,7 +5,7 @@ require(__DIR__ . '/../config/connection.php');
 class Photo extends PhotoSkeleton {
     public static function save() {
         global $conn;
-        $stmt = $conn->prepare("INSERT INTO photos (user_id, title, description, image_path) VALUES (?, ?, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO photos (user_id, title, description, image_url) VALUES (?, ?, ?, ?)");
         $stmt->bind_param("isss", self::$user_id, self::$title, self::$description, self::$image_url);
         $stmt->execute();
         self::$id = $conn->insert_id;

@@ -2,7 +2,7 @@
 header("Access-Control-Allow-Origin: *");
 header('Access-Control-Allow-Headers: *');
 header("Access-Control-Allow-Methods: POST, GET, PUT, DELETE, OPTIONS");
-header("Content-Type: application/json; charset=UTF-8");
+// header("Content-Type: application/json; charset=UTF-8");
 
 require(__DIR__ . '../../../models/Photo.php');
 
@@ -29,86 +29,129 @@ class PhotoController {
     }
 
     static function uploadPhoto() {
+        if (empty($_POST['user_id']) || empty($_POST['title'])) {
+            http_response_code(400);
+            echo json_encode(["message" => "Please fill all the required fields"]);
+            exit;
+        }
+    
         $user_id = $_POST['user_id'];
         $title = $_POST['title'];
         $description = $_POST['description'] ?? '';
-        
-        if(isset($_FILES['image'])) {
-            $uploadDir = __DIR__ . '/../uploads/';
-            $fileName = uniqid() . '_' . basename($_FILES['image']['name']);
-            $uploadPath = $uploadDir . $fileName;
+    
+        if (!isset($_FILES['image']) || $_FILES['image']['error'] !== UPLOAD_ERR_OK) {
+            http_response_code(400);
+            echo json_encode(["message" => "File upload failed"]);
+            exit;
+        }
+        echo json_encode(["error" => $_FILES['image']['error'], "image" => $_FILES['image']]);
+    
+        $uploadDir = realpath(__DIR__ . '/../../uploads') . DIRECTORY_SEPARATOR;
+        $fileName = uniqid() . '_' . basename($_FILES['image']['name']);
+        $uploadPath = $uploadDir . $fileName;
+    
+        echo json_encode(["file name is: " => $fileName, "upload path: " => $uploadPath]);
+        echo json_encode(["check: " => $_FILES['image']['tmp_name'], "upload path: " => $uploadPath]);
 
-            if(move_uploaded_file($_FILES['image']['tmp_name'], $uploadPath)) {
-                Photo::create(
-                    null, 
-                    $user_id,
-                    $title,
-                    $description,
-                    $fileName, 
-                    date('Y-m-d H:i:s')
-                );
-
-                if(Photo::save()) {
-                    if(!empty($_POST['tags'])) {
-                        $tags = explode(',', $_POST['tags']);
-                        foreach($tags as $tagName) {
-                            $tagName = trim($tagName);
-                            
-                            $tag = Tag::findByName($tagName);
-                            if(!$tag) {
-                                Tag::create(null, $tagName);
-                                Tag::save();
-                                $tagId = Tag::$id;
-                            } else {
-                                $tagId = $tag['id'];
-                            }
-                            
-                            PhotosTag::create(Photo::$id, $tagId);
-                            PhotosTag::save();
+        if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadPath)) {
+            $photo = Photo::create(null, $user_id, $title, $description, $fileName, date('Y-m-d H:i:s'));
+            echo json_encode(["message" => "entered"]);
+            echo json_encode(["photo" => $photo]);
+            
+            
+            if ($photo && Photo::save()) {
+                echo json_encode(["message" => "entered second"]);
+                if (!empty($_POST['tags'])) {
+                    $tags = explode(',', $_POST['tags']);
+                    foreach ($tags as $tagName) {
+                        $tagName = trim($tagName);
+    
+                        $tag = Tag::findByName($tagName);
+                        if (!$tag) {
+                            Tag::create(null, $tagName);
+                            Tag::save();
+                            $tagId = Tag::$id;
+                        } else {
+                            $tagId = $tag['id'];
                         }
+    
+                        PhotosTag::create(Photo::$id, $tagId);
+                        PhotosTag::save();
                     }
                 }
+    
+                http_response_code(200);
+                echo json_encode(["message" => "Image uploaded successfully", "file_name" => $fileName]);
+                return;
             }
         }
-        
+        error_log("Failed to move file. Temp path: " . $_FILES['image']['tmp_name']);
+        error_log("Destination path: " . $uploadPath);
+        error_log("PHP Error: " . print_r(error_get_last(), true));
+    
         http_response_code(400);
-        echo json_encode(["message" => 'failed to upload image']);
+        echo json_encode(["message" => "Failed to upload image"]);
     }
+    
 
     static function getPhoto() {
-        $id = $_GET['id'];
-        $photo = Photo::find($id);
-        
-        if($photo) {
-            echo json_encode(["message" => 'photo fetched successfully', "data" => $photo]);
-        } else {
-            echo json_encode(["response" => 'photo not found']);
+        $id = $_GET['id'] ?? null;
+
+        if (!$id) {
+            http_response_code(400);
+            echo json_encode(["message" => "Photo ID is required"]);
+            exit;
         }
+
+        $photo = Photo::find($id);
+
+        if (!$photo) {
+            http_response_code(404);
+            echo json_encode(["message" => "Photo not found"]);
+            exit;
+        }
+
+        echo json_encode(["message" => "Photo fetched successfully", "data" => $photo]);
     }
 
     static function updatePhoto() {
         $data = json_decode(file_get_contents('php://input'), true);
+
+        if (!isset($data['id'])) {
+            http_response_code(400);
+            echo json_encode(["message" => "Photo ID is not found"]);
+            exit;
+        }
         
+
         Photo::create(
             $data['id'],
-            $data['user_id'],
-            $data['title'],
-            $data['description'],
-            $data['image_url'], 
-            $data['created_at']
+            $data['user_id'] ?? null,
+            $data['title'] ?? null,
+            $data['description'] ?? null,
+            $data['image_url'] ?? null,
+            $data['created_at'] ?? null
         );
-        
-        echo json_encode(["message" => Photo::update() ? 'success' : 'fail']);
+
+        echo json_encode(["message" => Photo::update() ? "Photo updated successfully" : "Failed to update photo"]);
     }
 
     static function deletePhoto() {
-        $id = $_GET['id'];
+        $id = $_GET['id'] ?? null;
+
+        if (!$id) {
+            http_response_code(400);
+            echo json_encode(["message" => "Photo ID is required"]);
+            exit;
+        }
+
         Photo::$id = $id;
-        
-        if(Photo::delete()) {
-            echo json_encode(["message" => 'delete successfully']);
+
+        if (Photo::delete()) {
+            echo json_encode(["message" => "Photo deleted successfully"]);
         } else {
-            echo json_encode(["message" => 'failed to delete photo']);
+            http_response_code(500);
+            echo json_encode(["message" => "Failed to delete photo"]);
         }
     }
 
@@ -122,17 +165,24 @@ class PhotoController {
 
     static function updatePhotoTags() {
         $data = json_decode(file_get_contents('php://input'), true);
+
+        if (!isset($data['photo_id']) || !isset($data['tags'])) {
+            http_response_code(400);
+            echo json_encode(["message" => "Photo ID and tags are required"]);
+            exit;
+        }
+
         $photoId = $data['photo_id'];
         $tags = $data['tags'];
-        
+
         PhotosTag::$photo_id = $photoId;
         PhotosTag::deleteAllForPhoto();
-        
-        foreach($tags as $tagId) {
+
+        foreach ($tags as $tagId) {
             PhotosTag::create($photoId, $tagId);
             PhotosTag::save();
         }
-        
-        echo json_encode(["response" => 1]);
-    }   
+
+        echo json_encode(["message" => "Photo tags updated successfully"]);
+    } 
 }
