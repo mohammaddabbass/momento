@@ -36,5 +36,12 @@ class PhotosTag extends PhotoTagSkeleton {
         $stmt->execute();
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
+
+    public static function deleteAllForPhoto() {
+        global $conn;
+        $stmt = $conn->prepare("DELETE FROM photos_tags WHERE photo_id = ?");
+        $stmt->bind_param("i", self::$photo_id);
+        return $stmt->execute();
+    }
 };
 ?>

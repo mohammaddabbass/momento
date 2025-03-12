@@ -26,5 +26,21 @@ class Tag extends TagSkeleton {
         return $stmt->get_result()->fetch_assoc();
     }
 
+    public static function findByName($name) {
+        global $conn;
+        $stmt = $conn->prepare("SELECT * FROM tags WHERE name = ?");
+        $stmt->bind_param("s", $name);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_assoc();
+    }
+
+    public static function delete() {
+        global $conn;
+        $stmt = $conn->prepare("DELETE FROM tags WHERE id = ?");
+        $stmt->bind_param("i", self::$id);
+        return $stmt->execute();
+    }
+
+
 };
 ?>

@@ -15,14 +15,31 @@ if ($request == '') {
 }
 
 $apis = [
-    '/faqs'         => ['controller' => 'FAQController', 'method' => 'loadFAQs'],
-    '/create_faq'    => ['controller' => 'FAQController', 'method' => 'addFAQ']
+    // User routes
+    '/register' => ['controller' => 'UserController', 'method' => 'register'],
+    '/login'    => ['controller' => 'UserController', 'method' => 'login'],
+    '/user'     => ['controller' => 'UserController', 'method' => 'getUser'],
+    '/update'   => ['controller' => 'UserController', 'method' => 'updateUser'],
+    '/delete'   => ['controller' => 'UserController', 'method' => 'deleteUser'],
+
+    // Photo routes
+    '/photos' => ['controller' => 'PhotoController', 'method' => 'getAllPhotos'],
+    '/photo/upload' => ['controller' => 'PhotoController', 'method' => 'uploadPhoto'],
+    '/photo' => ['controller' => 'PhotoController', 'method' => 'getPhoto'],
+    '/photo/tags' => ['controller' => 'PhotoController', 'method' => 'getPhotoTags'],
+    '/photo/update-tags' => ['controller' => 'PhotoController', 'method' => 'updatePhotoTags'],
+    '/photos/by-tag' => ['controller' => 'PhotoController', 'method' => 'getPhotosByTag'],
+    
+    // Tag routes
+    '/tags' => ['controller' => 'TagController', 'method' => 'getAllTags'],
+    '/tag/create' => ['controller' => 'TagController', 'method' => 'createTag'],
+    '/tag/delete' => ['controller' => 'TagController', 'method' => 'deleteTag']
 ];
 
 if (isset($apis[$request])) {
     $controllerName = $apis[$request]['controller'];
     $method = $apis[$request]['method'];
-    require_once "apis/v1/{$controllerName}.php";
+    require_once "api/v1/{$controllerName}.php";
     
     $controller = new $controllerName();
     if (method_exists($controller, $method)) {
