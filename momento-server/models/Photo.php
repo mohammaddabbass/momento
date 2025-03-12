@@ -14,7 +14,7 @@ class Photo extends PhotoSkeleton {
 
     public static function all($user_id) {
         global $conn;
-        $result = $conn->query("SELECT * FROM photos WHERE user_id = ?");
+        $result = $conn->prepare("SELECT * FROM photos WHERE user_id = ?");
         $result->bind_param("i", $user_id);
         $result->execute();
         return $result->get_result()->fetch_assoc();    

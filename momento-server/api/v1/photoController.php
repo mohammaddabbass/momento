@@ -4,14 +4,27 @@ header('Access-Control-Allow-Headers: *');
 header("Access-Control-Allow-Methods: POST, GET, PUT, DELETE, OPTIONS");
 header("Content-Type: application/json; charset=UTF-8");
 
-require(__DIR__ . '/../models/Photo.php');
+require(__DIR__ . '../../../models/Photo.php');
 
 class PhotoController {
 
     static function getAllPhotos() {
-        $user_id = $_POST['user_id'];
+        $data = json_decode(file_get_contents('php://input'), true);
+        $user_id = $data['user_id'];
+
+        if(!$user_id) {
+            echo json_encode(["message" => "user unavailable"]);
+            exit;
+        }
 
         $photos = Photo::all($user_id);
+
+
+        if(!$photos) {
+            echo json_encode(["message" => "no photos available for the current user"]);
+            exit;
+        }
+
         echo json_encode(["message" => 'photos fetched successfully', "data" => $photos]);
     }
 

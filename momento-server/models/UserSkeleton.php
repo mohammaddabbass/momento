@@ -15,6 +15,15 @@ class UserSkeleton {
         self::$created_at = $created_at;
     }
 
+    public static function toArray() {
+        return [
+            'id' => self::$id,
+            'username' => self::$username,
+            'email' => self::$email,
+            'created_at' => self::$created_at
+        ];
+    }
+
 }
 
 ?>
