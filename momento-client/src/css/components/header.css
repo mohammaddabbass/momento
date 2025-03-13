@@ -2,7 +2,8 @@
     background-color: var(--color-neutral-light-solid);
     border-bottom: 2px solid var(--color-primary);
     padding: 1rem 1.3rem;
-    box-shadow: 0 2px 4px var(--color-primary-transparent);
+    box-shadow: 0 2px 4px var(--color-primary);
+    z-index: 1000;
   }
 
   .logo {

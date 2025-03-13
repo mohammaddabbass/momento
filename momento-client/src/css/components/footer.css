@@ -3,8 +3,8 @@ footer {
     text-align: center;
     padding: 20px;
     box-shadow: 0 -2px 8px var(--color-primary-transparent);
-    position: relative;
     width: 100%;
+
   }
   
   footer p {

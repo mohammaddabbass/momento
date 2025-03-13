@@ -2,8 +2,9 @@ import React from 'react';
 import "../css/components/forms.css"; 
 import Button from './Button';
 import Input from './Input';
+import { Link } from 'react-router-dom';
 
-const Form = ({title, caption, text, link, isSignup, name }) => {
+const Form = ({title, caption, text, link, isSignup, name, linkPath }) => {
     const handleClick = () => {
         console.log("Button clicked!");
       };
@@ -16,7 +17,7 @@ const Form = ({title, caption, text, link, isSignup, name }) => {
         {isSignup && <Input type={'text'} label={"Username"} placeholder={"Example-name"} />}
         <Input type={'password'} label={"Password"} placeholder={"eg. abc123"}/>
         <Button text= "login" onClick={handleClick}/>
-        <p>{text} <a href="">{link}</a></p>
+        <p>{text} <Link to={linkPath} className="link">{link}</Link></p>
     </div>
   );
 };

@@ -2,8 +2,10 @@ import React from 'react';
 import "../css/components/header.css"; 
 import Input from './Input';
 import Button from './Button';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
+
   return (
     <>
     <header className="header flex align-items justify-content">
@@ -14,7 +16,7 @@ const Header = () => {
                    className="search-bar" 
                    placeholder="Search memories..."/>
             
-            <Button text={"upload"}/>
+            <Link to="/upload" className="link"><Button text={"upload"}/></Link>
             <Button text={"Logout"} variant='primary-outline'/>
         </div>
     </header>

@@ -22,6 +22,11 @@
     color: white;
 }
 
+.secondary {
+    background-color: var(--color-neutral-dark);
+    color: white;
+}
+
 .primary:hover {
 background-color: var(--color-primary-light);
 }
@@ -33,10 +38,6 @@ background-color: var(--color-primary-light);
     color: var(--color-primary);
 }
 
-.secondary {
-background-color: var(--color-primary-light);
-color: white;
-}
 
 .danger {
 background-color: var(--danger-color);
