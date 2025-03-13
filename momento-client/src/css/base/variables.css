@@ -1,7 +1,7 @@
 :root {
-    --color-primary: #ED7B84;   
-    --color-primary-light: rgba(237, 123, 132, 0.1);
-    --color-primary-transparent: rgba(237, 123, 132, 0.3); 
+    --color-primary: #71493c;   
+    --color-primary-light: #a1553e;
+    --color-primary-transparent: rgba(255, 255, 255, 0.2); 
   
 
     --color-neutral-dark: #605F5E;   
@@ -12,7 +12,7 @@
     --overlay-light: rgba(255, 255, 255, 0.2); 
     
     --shadow-primary: rgba(96, 95, 94, 0.08); 
-    --shadow-accent: 0 5px 15px rgba(237, 123, 132, 0.3);
+    --shadow-accent: 0 5px 15px rgba(170, 53, 62, 0.3);
 
     --border-radius-regular: 8px;
     --border-radius-large: 20px;

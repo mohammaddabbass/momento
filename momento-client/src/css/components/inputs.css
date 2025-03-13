@@ -1,0 +1,19 @@
+.input-field {
+    background-color: var(--color-primary-transparent);
+    border: none;
+    border-bottom: 2px solid var(--color-neutral-light-solid);
+    border-radius: var(--border-radius-small);
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+}
+
+.input-field:focus {
+    border-bottom: 2px solid var(--color-primary);
+    outline: none;
+  }
+
+  input::placeholder {
+    color: rgb(51, 51, 51);
+    opacity: 1; 
+  }

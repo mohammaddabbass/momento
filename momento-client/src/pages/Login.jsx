@@ -1,10 +1,11 @@
 import React from 'react';
+import "../css/pages/login.css"; 
+import Form from '../components/form';
+
 
 const Login = () => {
   return (
-    <div>
-      Login Page
-    </div>
+    <Form/>
   );
 };
 
