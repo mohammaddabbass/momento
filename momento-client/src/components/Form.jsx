@@ -1,26 +1,22 @@
 import React from 'react';
 import "../css/components/forms.css"; 
-import Button from './button';
+import Button from './Button';
+import Input from './Input';
 
-const Form = () => {
+const Form = ({title, caption, text, link, isSignup, name }) => {
     const handleClick = () => {
         console.log("Button clicked!");
       };
 
   return (
-    <div className='form-container flex column'>
-        <h1>Welcome Home!</h1>
-        <h3>Your memories await</h3>
-        <div className="form-group">
-            <label  htmlFor="">Email</label>
-            <input className='input-field' type="text" placeholder='example@email.com'/>
-        </div>
-        <div className="form-group">
-            <label htmlFor="">Password</label>
-            <input className='input-field' type="password" placeholder='abc123'/>
-        </div>
+    <div className={`form-container flex column ${name}`}>
+        <h1>{title}</h1>
+        <h3>{caption}</h3>
+        <Input type={'text'} label={"Email"} placeholder={"example@gmail.com"}/>
+        {isSignup && <Input type={'text'} label={"Username"} placeholder={"Example-name"} />}
+        <Input type={'password'} label={"Password"} placeholder={"eg. abc123"}/>
         <Button text= "login" onClick={handleClick}/>
-        <p>First time here? <a href="">Create your memory box</a></p>
+        <p>{text} <a href="">{link}</a></p>
     </div>
   );
 };

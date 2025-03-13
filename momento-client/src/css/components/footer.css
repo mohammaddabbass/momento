@@ -1,0 +1,21 @@
+footer {
+    background-color: var(--color-primary);
+    text-align: center;
+    padding: 20px;
+    box-shadow: 0 -2px 8px var(--color-primary-transparent);
+    position: relative;
+    width: 100%;
+  }
+  
+  footer p {
+    font-size: 1.2em;
+    color: var(--color-neutral-light);
+    margin: 0;
+  }
+  
+  footer small {
+    display: block;
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: var(--color-neutral-light);
+  }

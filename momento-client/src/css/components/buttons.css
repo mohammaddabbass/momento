@@ -26,6 +26,13 @@
 background-color: var(--color-primary-light);
 }
 
+.primary-outline {
+    padding: 0.5rem 1.15rem;
+    border: 2px solid var(--color-primary);
+    background-color: var(--color-neutral-light-solid);
+    color: var(--color-primary);
+}
+
 .secondary {
 background-color: var(--color-primary-light);
 color: white;

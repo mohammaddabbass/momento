@@ -2,12 +2,13 @@
 import Login from "./pages/login.jsx";
 import Home from "./pages/home.jsx";
 import './css/main.css';
+import Signup from "./pages/Signup.jsx";
 
 function App() {
 
   return (
     <>
-      <Login/>   
+      <Home/>   
     </>
   )
 }

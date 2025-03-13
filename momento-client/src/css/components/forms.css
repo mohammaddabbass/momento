@@ -34,7 +34,13 @@
     color: var(--color-primary-light);
 }
 
+.login {
+    min-height: 58vh;
+}
 
+.signup {
+    min-height: 65vh;
+}
 
 @media screen and (max-width: 767px) {
     .form-container {
