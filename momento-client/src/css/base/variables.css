@@ -1,0 +1,24 @@
+:root {
+    --color-primary: #71493c;   
+    --color-primary-light: #a1553e;
+    --color-primary-transparent: rgba(255, 255, 255, 0.2); 
+  
+
+    --color-neutral-dark: #605F5E;   
+    --color-neutral-light: rgba(247, 244, 240, 0.9); 
+    --color-neutral-light-solid: #F7F4F0;
+  
+    --overlay-dark: rgba(0, 0, 0, 0.2);  
+    --overlay-light: rgba(255, 255, 255, 0.2); 
+    
+    --shadow-primary: rgba(96, 95, 94, 0.08); 
+    --shadow-accent: 0 5px 15px rgba(170, 53, 62, 0.3);
+
+    --border-radius-regular: 8px;
+    --border-radius-large: 20px;
+    --border-radius-small: 4px;
+
+    --font-body: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    --font-accent: 'Shadows Into Light', cursive, sans-serif;
+  
+  }

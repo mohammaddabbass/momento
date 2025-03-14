@@ -1,0 +1,50 @@
+@import './inputs.css';
+
+.form-container {
+    min-height: 58vh;
+    min-width: 22vw;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 2rem;
+    backdrop-filter: blur(10px) saturate(200%);
+    border-radius: var(--border-radius-large);
+    background-color: var(--color-primary-transparent);
+    box-shadow: var(--shadow-accent);
+
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.form-container .btn {
+    margin-top: 1rem;
+    width: 100%;
+}
+
+.form-container {
+    color: white;
+}
+
+.form-container a {
+    text-decoration: none;
+    color: var(--color-primary-light);
+}
+
+.login {
+    min-height: 58vh;
+}
+
+.signup {
+    min-height: 65vh;
+}
+
+@media screen and (max-width: 767px) {
+    .form-container {
+        min-height: 48vh;
+        min-width: 70vw;
+    }
+  }

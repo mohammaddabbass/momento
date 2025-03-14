@@ -1,0 +1,13 @@
+.login-signup-page {
+    background-image: url('../../assets/images/laura-fuhrman-73OJLcahQHg-unsplash.jpg');
+    background-size:cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  

@@ -1,0 +1,45 @@
+.btn {
+    border: none;
+    border-radius: var(--border-radius-regular);
+    padding: 0.6rem 1.3rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+}
+
+.btn:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+.btn:active {
+    transform: translateY(1px);
+}
+
+.primary {
+    background-color: var(--color-primary);
+    color: white;
+}
+
+.secondary {
+    background-color: var(--color-neutral-dark);
+    color: white;
+}
+
+.primary:hover {
+background-color: var(--color-primary-light);
+}
+
+.primary-outline {
+    padding: 0.5rem 1.15rem;
+    border: 2px solid var(--color-primary);
+    background-color: var(--color-neutral-light-solid);
+    color: var(--color-primary);
+}
+
+
+.danger {
+background-color: var(--danger-color);
+color: white;
+}
