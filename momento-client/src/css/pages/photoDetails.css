@@ -79,19 +79,23 @@
 
 
 .edit-modal {
+    z-index: 1000;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
     background: var(--overlay-dark);
-    display: none;
+    display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .modal-content {
-    background: var(--color-neutral-light-solid);
+    backdrop-filter: blur(10px) saturate(200%);
+    border-radius: var(--border-radius-large);
+    background-color: var(--color-primary-transparent);
+    box-shadow: var(--shadow-accent);
     padding: 2rem;
     border-radius: var(--border-radius-regular);
     width: 600px;
@@ -101,13 +105,7 @@
     margin-bottom: 1rem;
 }
 
-input, textarea {
-    width: 100%;
-    padding: 0.8rem;
-    border: 1px solid var(--color-primary);
-    border-radius: var(--border-radius-small);
-    background: var(--color-primary-transparent);
-}
+
 
 @media (max-width: 768px) {
     .photo-container {
