@@ -8,10 +8,10 @@
   
   .card {
     cursor: pointer;
-    background: rgb(237, 237, 237);
+    background-color: var(--color-neutral-light-solid);
     padding: 1rem;
     border-radius: var(--border-radius-regular);
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+    box-shadow: 1px 4px 6px rgba(0, 0, 0, 0.2);
     width: 20%;
     text-align: center;
   }

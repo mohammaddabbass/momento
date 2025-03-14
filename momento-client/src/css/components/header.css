@@ -2,7 +2,7 @@
     background-color: var(--color-neutral-light-solid);
     border-bottom: 2px solid var(--color-primary);
     padding: 1rem 1.3rem;
-    box-shadow: 0 2px 4px var(--color-primary);
+    box-shadow: 0 2px 4px var(--color-neutral-dark);
     z-index: 1000;
   }
 
