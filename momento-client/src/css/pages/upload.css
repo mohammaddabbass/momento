@@ -1,0 +1,83 @@
+    .upload-page {
+        background-image: url('../../assets/images/felipe-santana-xJkTCbtuqAY-unsplash.jpg');
+        background-color:burlywood;
+        background-size:cover; 
+        background-position: center; 
+        background-repeat: no-repeat; 
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;    
+    }
+
+
+    .upload-form {
+        background: var(--color-neutral-light);
+        padding: 2rem;
+        border-radius: var(--border-radius-large);
+        border-radius: var(--border-radius-large);
+        background-color: var(--color-neutral-light);
+        box-shadow: var(--shadow-accent);
+    
+    }
+
+    .upload-form h2 {
+        color: var(--color-primary);
+        margin-bottom: 2rem;
+    }
+
+
+    .form-group label {
+        color: var(--color-neutral-dark);
+    }
+
+   
+    textarea {
+        width: 100%;
+        padding: 0.8rem;
+        border: 1px solid var(--color-primary);
+        border-radius: var(--border-radius-small);
+        background: var(--color-primary-transparent);
+    }
+
+    .file-upload .upload-area {
+        border: 2px dashed var(--color-primary);
+        border-radius: var(--border-radius-regular);
+        padding: 2rem;
+        text-align: center;
+        cursor: pointer;
+    }
+
+    .file-upload input[type="file"] {
+        display: none;
+    }
+
+    .tags-input {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        border: 1px solid var(--color-primary);
+        padding: 0.5rem;
+        border-radius: var(--border-radius-small);
+    }
+
+    .tag {
+        background: var(--color-primary-transparent);
+        padding: 0.3rem 0.8rem;
+        border-radius: var(--border-radius-large);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .tag button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: var(--color-neutral-dark);
+    }
+
+    .upload-form .btn{
+        width: 100%;
+    }
