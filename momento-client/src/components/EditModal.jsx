@@ -12,18 +12,18 @@ const EditModal = ({ isOpen, onClose }) => {
             <Input
               label="Title"
               type="text"
-              defaultValue="Golden Hour Memories"
+              value="Golden Hour Memories"
             />
             <Input
               label="Description"
               type="textarea"
               rows="4"
-              defaultValue="A breath taking sunset captured during..."
+              value="A breath taking sunset captured during..."
             />
             <Input
               label="Tags (comma separated)"
               type="text"
-              defaultValue="sunset, mountains, summer, nature"
+              value="sunset, mountains, summer, nature"
             />
             <div className="actions-container">
               <button type="submit" className="btn btn-edit">
