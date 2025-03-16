@@ -1,8 +1,14 @@
 <?php
-header("Access-Control-Allow-Origin: *");
-header('Access-Control-Allow-Headers: *');
-header("Access-Control-Allow-Methods: POST, GET, PUT, DELETE, OPTIONS");
-header("Content-Type: application/json; charset=UTF-8");
+header("Access-Control-Allow-Origin: http://localhost:5173");
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
+header("Access-Control-Allow-Credentials: true");
+
+// Handle preflight OPTIONS requests
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit();
+}
 
 require(__DIR__ . '../../../models/User.php');
 
@@ -57,11 +63,11 @@ class UserController {
         if($user && password_verify($data['password'], $user['password'])) {
             echo json_encode([
                 "message" => 'logged in successfully',
-                "user" => $user::toArray()
+                "user" => $user
             ]);
         } else {
             http_response_code(404);
-            echo json_encode(["message" => 'unable to login']);
+            echo json_encode(["message" => 'Invalid Credentials']);
         }
     }
 }

@@ -13,7 +13,7 @@ if (strpos($request, $base_dir) === 0) {
 if ($request == '') {
     $request = '/';
 }
-
+    
 $apis = [
     // User routes
     '/register' => ['controller' => 'UserController', 'method' => 'register'],
