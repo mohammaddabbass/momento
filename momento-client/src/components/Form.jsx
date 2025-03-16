@@ -18,9 +18,9 @@ const Form = ({title, caption, text, link, isSignup, name, linkPath, credentials
         <h1>{title}</h1>
         <h3>{caption}</h3>
         <Input type={'text'} label={"Email"} placeholder={"example@gmail.com"} name = {"email"} value= {credentials.email || ''} onChange= {handleInputChange}/>
-        {isSignup && <Input type={'text'} label={"Username"} placeholder={"Example-name"} />}
+        {isSignup && <Input type={'text'} label={"Username"} placeholder={"Example-name"} name={"username"} value={credentials.username || ''} onChange={handleInputChange}/>}
         <Input type={'password'} label={"Password"} placeholder={"eg. abc123"} name = {"password"} value= {credentials.password || ''} onChange= {handleInputChange}/>
-        <Button text= "login" onClick={onsubmit}/>
+        <Button text= {name} onClick={onsubmit}/>
         <p>{text} <Link to={linkPath} className="link">{link}</Link></p>
     </div>
   );

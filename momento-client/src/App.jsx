@@ -1,5 +1,5 @@
 // import './App.css'
-import Login from "./pages/login.jsx";
+import Login from "./pages/Login.jsx";
 import Home from "./pages/home.jsx";
 import PhotoDetails from "./pages/PhotoDetails.jsx";
 import Upload from "./pages/Upload.jsx";
