@@ -43,3 +43,23 @@ export const signup = async ({method, route ,body}) => {
     }
     }
 }
+
+
+export const getPhotos = async ({method, route, body}) => {
+    try {
+        const response = await axios.request({
+            method,
+            headers: req_headers,
+            url: base_url + route,
+            data: body
+        });
+    
+        return response.data
+    } catch (error) {
+        console.log(error);
+        return {
+            error: true,
+            message: error.message,
+        }
+    }
+}
