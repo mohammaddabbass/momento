@@ -34,6 +34,12 @@
     color: var(--color-primary-light);
 }
 
+
+
+.form-group label {
+    margin-bottom: 0.3rem;
+}
+
 .login {
     min-height: 58vh;
 }
@@ -46,5 +52,6 @@
     .form-container {
         min-height: 48vh;
         min-width: 70vw;
+        max-width: 90vw;
     }
   }

@@ -3,22 +3,22 @@ import "../css/components/filterChips.css";
 
 const FilterChips = () => {
     return (
-        <div class="filter-container">
-        <div class="chips-scroll-container">
-            <div class="filter-chip active">All Photos</div>
-            <div class="filter-chip">Nature</div>
-            <div class="filter-chip">Travel</div>
-            <div class="filter-chip">Vintage</div>
-            <div class="filter-chip">Family</div>
-            <div class="filter-chip">Black & White</div>
-            <div class="filter-chip">Landscapes</div>
-            <div class="filter-chip">Portraits</div>
-            <div class="filter-chip">Portraits</div>
-            <div class="filter-chip">Portraits</div>
-            <div class="filter-chip">Portraits</div>
-            <div class="filter-chip">Portraits</div>
-            <div class="filter-chip">Portraits</div>
-            <div class="filter-chip">Portraits</div>
+        <div className="filter-container">
+        <div className="chips-scroll-container">
+            <div className="filter-chip active">All Photos</div>
+            <div className="filter-chip">Nature</div>
+            <div className="filter-chip">Travel</div>
+            <div className="filter-chip">Vintage</div>
+            <div className="filter-chip">Family</div>
+            <div className="filter-chip">Black & White</div>
+            <div className="filter-chip">Landscapes</div>
+            <div className="filter-chip">Portraits</div>
+            <div className="filter-chip">Portraits</div>
+            <div className="filter-chip">Portraits</div>
+            <div className="filter-chip">Portraits</div>
+            <div className="filter-chip">Portraits</div>
+            <div className="filter-chip">Portraits</div>
+            <div className="filter-chip">Portraits</div>
         </div>
     </div>
     );
