@@ -175,7 +175,9 @@ class PhotoController {
 
 
     static function getPhotosByTag() {
-        $tagId = $_GET['tag_id'];
+        $data = json_decode(file_get_contents('php://input'), true);
+
+        $tagId = $data['tag_id'];
         $photos = PhotosTag::getTagPhotos($tagId);
         echo json_encode(["response" => 1, "data" => $photos]);
     }
