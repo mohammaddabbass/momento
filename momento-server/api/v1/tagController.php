@@ -4,7 +4,8 @@ header('Access-Control-Allow-Headers: *');
 header("Access-Control-Allow-Methods: POST, GET, DELETE, OPTIONS");
 header("Content-Type: application/json; charset=UTF-8");
 
-require(__DIR__ . '/../models/Tag.php');
+require(__DIR__ . '../../../models/Tag.php');
+
 
 class TagController {
 
