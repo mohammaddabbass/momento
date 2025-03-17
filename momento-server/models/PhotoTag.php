@@ -1,11 +1,11 @@
 <?php
-require("PhotosTagSkeleton.php");
-require(__DIR__ . '/../connection/connection.php');
+require("PhotoTagSkeleton.php");
+require(__DIR__ . '/../config/connection.php');
 
 class PhotosTag extends PhotoTagSkeleton {
     public static function save() {
         global $conn;
-        $stmt = $conn->prepare("INSERT INTO photos_tags (photo_id, tag_id) VALUES (?, ?)");
+        $stmt = $conn->prepare("INSERT INTO photo_tags (photo_id, tag_id) VALUES (?, ?)");
         $stmt->bind_param("ii", self::$photo_id, self::$tag_id);
         return $stmt->execute();
     }

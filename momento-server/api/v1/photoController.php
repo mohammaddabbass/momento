@@ -11,6 +11,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 }
 
 require(__DIR__ . '../../../models/Photo.php');
+require(__DIR__ . '../../../models/Tag.php');
+require(__DIR__ . '../../../models/PhotoTag.php');
 
 class PhotoController {
 
@@ -35,43 +37,55 @@ class PhotoController {
     }
 
     static function uploadPhoto() {
-        if (empty($_POST['user_id']) || empty($_POST['title'])) {
+        // Read JSON input
+        $data = json_decode(file_get_contents('php://input'), true);
+    
+        if (empty($data['user_id']) || empty($data['title']) || empty($data['image'])) {
             http_response_code(400);
             echo json_encode(["message" => "Please fill all the required fields"]);
             exit;
         }
     
-        $user_id = $_POST['user_id'];
-        $title = $_POST['title'];
-        $description = $_POST['description'] ?? '';
+        $user_id = $data['user_id'];
+        $title = $data['title'];
+        $description = $data['description'] ?? '';
+        $base64Image = $data['image']; // Base64 string from frontend
     
-        if (!isset($_FILES['image']) || $_FILES['image']['error'] !== UPLOAD_ERR_OK) {
+        // Decode Base64
+        $imageParts = explode(';base64,', $base64Image);
+        if (count($imageParts) !== 2) {
             http_response_code(400);
-            echo json_encode(["message" => "File upload failed"]);
+            echo json_encode(["message" => "Invalid Base64 format"]);
             exit;
         }
-        echo json_encode(["error" => $_FILES['image']['error'], "image" => $_FILES['image']]);
     
+        $imageTypeAux = explode('image/', $imageParts[0]);
+        $imageType = $imageTypeAux[1] ?? 'png'; // Default to PNG if no type found
+        $imageData = base64_decode($imageParts[1]);
+    
+        if ($imageData === false) {
+            http_response_code(400);
+            echo json_encode(["message" => "Invalid Base64 data"]);
+            exit;
+        }
+    
+        // Save Image
         $uploadDir = realpath(__DIR__ . '/../../uploads') . DIRECTORY_SEPARATOR;
-        $fileName = uniqid() . '_' . basename($_FILES['image']['name']);
+        $fileName = uniqid() . '.' . $imageType; // Generate a unique filename
         $uploadPath = $uploadDir . $fileName;
     
-        echo json_encode(["file name is: " => $fileName, "upload path: " => $uploadPath]);
-        echo json_encode(["check: " => $_FILES['image']['tmp_name'], "upload path: " => $uploadPath]);
-
-        if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadPath)) {
-            $photo = Photo::create(null, $user_id, $title, $description, $fileName, date('Y-m-d H:i:s'));
-            echo json_encode(["message" => "entered"]);
-            echo json_encode(["photo" => $photo]);
-            
-            
-            if ($photo && Photo::save()) {
-                echo json_encode(["message" => "entered second"]);
-                if (!empty($_POST['tags'])) {
-                    $tags = explode(',', $_POST['tags']);
+        if (file_put_contents($uploadPath, $imageData)) {
+            Photo::create(null, $user_id, $title, $description, $fileName, date('Y-m-d H:i:s'));
+            if (Photo::save()) {
+                // Handle tags if provided
+                echo json_encode(["message"=> "entered here 2"]);
+                if (!empty($data['tags'])) {
+                    echo json_encode(["message"=> "entered here 3"]);
+                    $tags = explode(',', $data['tags']);
                     foreach ($tags as $tagName) {
                         $tagName = trim($tagName);
-    
+                        
+                        echo json_encode(["tag" => $tagName]);
                         $tag = Tag::findByName($tagName);
                         if (!$tag) {
                             Tag::create(null, $tagName);
@@ -91,13 +105,11 @@ class PhotoController {
                 return;
             }
         }
-        error_log("Failed to move file. Temp path: " . $_FILES['image']['tmp_name']);
-        error_log("Destination path: " . $uploadPath);
-        error_log("PHP Error: " . print_r(error_get_last(), true));
     
         http_response_code(400);
         echo json_encode(["message" => "Failed to upload image"]);
-    }
+    }   
+    
     
 
     static function getPhoto() {
