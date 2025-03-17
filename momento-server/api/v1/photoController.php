@@ -37,7 +37,6 @@ class PhotoController {
     }
 
     static function uploadPhoto() {
-        // Read JSON input
         $data = json_decode(file_get_contents('php://input'), true);
     
         if (empty($data['user_id']) || empty($data['title']) || empty($data['image'])) {
@@ -49,9 +48,8 @@ class PhotoController {
         $user_id = $data['user_id'];
         $title = $data['title'];
         $description = $data['description'] ?? '';
-        $base64Image = $data['image']; // Base64 string from frontend
+        $base64Image = $data['image']; 
     
-        // Decode Base64
         $imageParts = explode(';base64,', $base64Image);
         if (count($imageParts) !== 2) {
             http_response_code(400);
@@ -60,7 +58,7 @@ class PhotoController {
         }
     
         $imageTypeAux = explode('image/', $imageParts[0]);
-        $imageType = $imageTypeAux[1] ?? 'png'; // Default to PNG if no type found
+        $imageType = $imageTypeAux[1] ?? 'png'; 
         $imageData = base64_decode($imageParts[1]);
     
         if ($imageData === false) {
@@ -71,13 +69,12 @@ class PhotoController {
     
         // Save Image
         $uploadDir = realpath(__DIR__ . '/../../uploads') . DIRECTORY_SEPARATOR;
-        $fileName = uniqid() . '.' . $imageType; // Generate a unique filename
+        $fileName = uniqid() . '.' . $imageType;
         $uploadPath = $uploadDir . $fileName;
     
         if (file_put_contents($uploadPath, $imageData)) {
             Photo::create(null, $user_id, $title, $description, $fileName, date('Y-m-d H:i:s'));
             if (Photo::save()) {
-                // Handle tags if provided
                 echo json_encode(["message"=> "entered here 2"]);
                 if (!empty($data['tags'])) {
                     echo json_encode(["message"=> "entered here 3"]);
@@ -113,7 +110,9 @@ class PhotoController {
     
 
     static function getPhoto() {
-        $id = $_GET['id'] ?? null;
+        $data = json_decode(file_get_contents('php://input'), true);
+
+        $id = $data['id'] ?? null;
 
         if (!$id) {
             http_response_code(400);
